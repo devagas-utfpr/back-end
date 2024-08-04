@@ -21,8 +21,6 @@ backend/
 │   ├── application/
 │   │   ├── controllers/
 │   │   ├── middlewares/
-│   │   ├── routes/
-│   ├── config/
 │   ├── domain/
 │   │   ├── entities/
 │   │   ├── repositories/
@@ -30,6 +28,9 @@ backend/
 │   ├── infrastructure/
 │   │   ├── repositories/
 │   │   ├── utils/
+│   ├── main/
+│   │   ├── config/
+│   │   ├── routes/
 │   ├── app.ts
 │   └── server.ts
 ├── .env
