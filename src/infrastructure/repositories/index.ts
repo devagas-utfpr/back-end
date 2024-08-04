@@ -1,0 +1,1 @@
+export { } // Implementações dos repositórios utilizando Prisma

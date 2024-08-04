@@ -1,0 +1,1 @@
+export { } // Interfaces dos repositórios

@@ -1,0 +1,1 @@
+export { } // Entidades de domínio
