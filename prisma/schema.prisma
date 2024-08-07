@@ -7,9 +7,91 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Cargo {
+  uuid      String   @id @default(uuid())
+  nome      String
+  vagas     Vaga[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Empresa {
+  uuid      String   @id @default(uuid())
+  nome      String
+  cnpj      String   @unique
+  email     String   @unique
+  cidade    Int
+  senha     String
+  Vaga      Vaga[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([cnpj])
+}
+
+model Requisito {
+  uuid      String          @id @default(uuid())
+  nome      String
+  vagas     VagaRequisito[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
 model Usuario {
-  id    Int    @id @default(autoincrement())
-  nome  String
-  email String @unique
-  senha String
+  uuid           String        @id @default(uuid())
+  nome           String
+  cpf            String        @unique
+  email          String        @unique
+  dataNascimento DateTime
+  senha          String
+  usuarioVagas   UsuarioVaga[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([email])
+  @@index([cpf])
+}
+
+model UsuarioVaga {
+  uuid        String   @id @default(uuid())
+  dataEntrada DateTime
+  status      Boolean
+  usuario     Usuario  @relation(fields: [uuidUsuario], references: [uuid])
+  uuidUsuario String
+  vaga        Vaga     @relation(fields: [uuidVaga], references: [uuid])
+  uuidVaga    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([uuidUsuario])
+  @@index([uuidVaga])
+}
+
+model Vaga {
+  uuid         String          @id @default(uuid())
+  titulo       String
+  descricao    String
+  status       Boolean
+  modalidade   Int
+  dataInicio   DateTime
+  dataFim      DateTime
+  empresa      Empresa         @relation(fields: [uuidEmpresa], references: [uuid])
+  uuidEmpresa  String
+  cargo        Cargo           @relation(fields: [uuidCargo], references: [uuid])
+  uuidCargo    String
+  usuarioVagas UsuarioVaga[]
+  requisitos   VagaRequisito[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model VagaRequisito {
+  uuid          String    @id @default(uuid())
+  vaga          Vaga      @relation(fields: [uuidVaga], references: [uuid])
+  uuidVaga      String
+  requisito     Requisito @relation(fields: [uuidRequisito], references: [uuid])
+  uuidRequisito String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
