@@ -1,1 +1,0 @@
-export { } // Controladores para lidar com as requisições HTTP

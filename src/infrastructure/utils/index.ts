@@ -1,1 +1,0 @@
-export { } // Utilitários como validação e log
