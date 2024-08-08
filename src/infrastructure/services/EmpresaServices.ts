@@ -2,7 +2,7 @@ import { IEmpresaRepository } from "../../domain/repositories/IEmpresaRepository
 import { Empresa } from "../../domain/entities/Empresa";
 import { prisma } from "../prisma/PrismaClient";
 
-export class PrismaEmpresaRepository implements IEmpresaRepository {
+export class EmpresaService implements IEmpresaRepository {
   async getAll(): Promise<Empresa[]> {
     const empresas = await prisma.empresa.findMany();
 

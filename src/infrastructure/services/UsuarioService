@@ -1,0 +1,72 @@
+import { IUsuarioRepository } from "../../domain/repositories/IUsuarioRepository";
+import { Usuario } from "../../domain/entities/Usuario";
+import { prisma } from "../prisma/PrismaClient";
+
+export class UsuarioService implements IUsuarioRepository {
+  async getAll(): Promise<Usuario[]> {
+    const usuarios = await prisma.usuario.findMany();
+
+    if (!usuarios) throw new Error("Nenhum usuário foi encontrado.");
+
+    return usuarios.map(
+      (usuarios) =>
+        new Usuario(
+          usuarios.uuid,
+          usuarios.nome,
+          usuarios.cpf,
+          usuarios.email,
+          usuarios.dataNascimento,
+          usuarios.senha,
+          usuarios.createdAt,
+          usuarios.updatedAt
+        )
+    );
+  }
+
+  async create(Usuario: Usuario): Promise<void> {
+    const usuario = await prisma.usuario.create({
+        data: {
+            nome: Usuario.nome,
+            cpf: Usuario.cpf,
+            email: Usuario.email,
+            dataNascimento: Usuario.dataNascimento,
+            senha: Usuario.senha
+        },
+    });
+  }
+
+  async getByUuid(uuid: string): Promise<Usuario> {
+      const usuario = await prisma.usuario.findUnique({
+        where: {
+            uuid: uuid
+        }
+      });
+      
+      if(!usuario) throw new Error("Usuário não encontrado.")
+
+      return usuario;
+  }
+
+  async update(Usuario: Usuario, uuid: string): Promise<void> {
+      const usuario = await prisma.usuario.update({
+        where: {
+          uuid: uuid
+        },
+        data: {
+          nome: Usuario.nome,
+          cpf: Usuario.cpf,
+          email: Usuario.email,
+          dataNascimento: Usuario.dataNascimento,
+          senha: Usuario.senha
+        }
+      });
+  }
+  async delete(uuid: string): Promise<void> {
+      const usuario = await prisma.usuario.delete({
+        where: {
+          uuid: uuid
+        }
+      });
+  }
+  // Outros métodos de repositório...
+}
