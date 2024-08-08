@@ -1,1 +1,0 @@
-export { } // Rotas da aplicação
