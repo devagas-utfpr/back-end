@@ -1,13 +1,36 @@
 import { Router } from "express";
-import { PrismaEmpresaRepository } from "../../infrastructure/services/EmpresaServices";
-import { EmpresaController } from "../../presentation/controllers/EmpresaController";
+import { EmpresaController } from "../../presentation/controllers/empresa";
 
 const router = Router();
-const empresaRepository = new PrismaEmpresaRepository();
-const empresaController = new EmpresaController(empresaRepository);
 
-router.get("/empresas", (req, res) =>
-  empresaController.getAll(res)
+router.post(
+  "/empresas",
+  EmpresaController.createValidation,
+  EmpresaController.create
+);
+
+router.get(
+  "/empresas",
+  EmpresaController.getAllValidation,
+  EmpresaController.getAll
+);
+
+router.get(
+  "/empresas/:uuid",
+  EmpresaController.getByUUIDValidation,
+  EmpresaController.getByUUID
+);
+
+router.put(
+  "/empresas/:uuid",
+  EmpresaController.updateByUUIDValidation,
+  EmpresaController.updateByUUID
+);
+
+router.delete(
+  "/empresas/:uuid",
+  EmpresaController.deleteByUUIDValidation,
+  EmpresaController.deleteByUUID
 );
 
 export default router;
