@@ -6,7 +6,10 @@
   "author": "Eduardo Riki <eduardomatushita1@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev ./src/index.ts",
+    "start": "node ./build/index.js",
+    "dev": "ts-node-dev ./src/index.ts",
+    "build": "tsc",
+    "test": "jest",
     "production": "node ./build/index.js",
     "postinstall": "tsc"
   },
