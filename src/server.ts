@@ -1,5 +1,7 @@
 import express from "express";
 
+import "./main/utils/TraducoesYup";
+
 import cors from "cors";
 import router from "./main/routes/routes";
 
