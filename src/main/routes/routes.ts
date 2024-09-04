@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { EmpresaController } from "../../presentation/controllers/empresa";
 import { UsuarioController } from "../../presentation/controllers/usuario";
+import { AuthController } from "../../presentation/controllers/auth";
 import { CargoController } from "../../presentation/controllers/cargo";
 import { RequisitoController } from "../../presentation/controllers/requisito"
 const router = Router();
@@ -33,6 +34,12 @@ router.delete(
   "/empresas/:uuid",
   EmpresaController.deleteByUUIDValidation,
   EmpresaController.deleteByUUID
+);
+
+router.post(
+  "/auth",
+  AuthController.signInValidation,
+  AuthController.signIn,
 );
 
 router.post(
