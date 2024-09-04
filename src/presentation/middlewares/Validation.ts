@@ -34,7 +34,6 @@ export const validation: TValidation =
     if (Object.entries(errorsResult).length == 0) {
       return next();
     } else {
-      console.log("AA");
       return res.status(StatusCodes.BAD_REQUEST).json({ errors: errorsResult });
     }
   };
