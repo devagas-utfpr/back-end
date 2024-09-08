@@ -1,4 +1,6 @@
 import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swaggerConfig";
 
 import "./main/utils/TraducoesYup";
 
@@ -7,11 +9,13 @@ import router from "./main/routes/routes";
 
 const server = express();
 
+server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 server.use(
   cors({
-    origin: '*',
-    methods: '*',
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: "*",
+    methods: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
