@@ -1,5 +1,4 @@
-import { string } from "yup";
-import { Requisito } from "../../../domain/entities/Requisito";
+import { Requisito } from "@prisma/client";
 import { prisma } from "../../prisma/PrismaClient";
 
 export const getByUUID = async (uuid: string): Promise<Requisito | Error> => {
