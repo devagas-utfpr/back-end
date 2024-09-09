@@ -4,7 +4,7 @@ import * as getByUUID from "./GetByUUID";
 import * as updateByUUID from "./UpdateByUUID";
 import * as deleteByUUID from "./DeleteByUUID";
 
-export const VagaRequisitoController = {
+export const VagaController = {
   ...create,
   ...getAll,
   ...getByUUID,

@@ -7,6 +7,7 @@ import {
   RequisitoController,
   VagaRequisitoController,
   UsuarioVagaController,
+  VagaController,
 } from "../../presentation/controllers";
 import { ensureAuthenticated } from "../../presentation/middlewares/ensureAuthenticated";
 const router = Router();
@@ -157,6 +158,36 @@ router.delete(
 );
 
 router.post(
+  "/vagas",
+  ensureAuthenticated,
+  VagaController.createValidation,
+  VagaController.create
+);
+
+router.get("/vagas", VagaController.getAllValidation, VagaController.getAll);
+
+router.get(
+  "/vagas/:uuid",
+  ensureAuthenticated,
+  VagaController.getByUUIDValidation,
+  VagaController.getByUUID
+);
+
+router.put(
+  "/vagas/:uuid",
+  ensureAuthenticated,
+  VagaController.updateByUUIDValidation,
+  VagaController.updateByUUID
+);
+
+router.delete(
+  "/vagas/:uuid",
+  ensureAuthenticated,
+  VagaController.deleteByUUIDValidation,
+  VagaController.deleteByUUID
+);
+
+router.post(
   "/vagas/requisitos",
   ensureAuthenticated,
   VagaRequisitoController.createValidation,
@@ -205,6 +236,5 @@ router.delete(
   UsuarioVagaController.deleteByUUIDValidation,
   UsuarioVagaController.deleteByUUID
 );
-
 
 export default router;
