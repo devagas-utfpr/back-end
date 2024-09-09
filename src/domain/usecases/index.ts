@@ -1,1 +1,0 @@
-export { } // Casos de uso ou serviços de negócios
