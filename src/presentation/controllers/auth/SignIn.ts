@@ -57,7 +57,10 @@ export const signIn = async (
       });
     }
 
-    const accessToken = JWTService.sign({ uuid: empresa.uuid });
+    const accessToken = JWTService.sign({
+      uuid: empresa.uuid,
+      isEmpresa: true,
+    });
     if (accessToken === "JWT_SECRET_NOT_FOUND") {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         errors: {
@@ -80,7 +83,7 @@ export const signIn = async (
     });
   }
 
-  const accessToken = JWTService.sign({ uuid: usuario.uuid });
+  const accessToken = JWTService.sign({ uuid: usuario.uuid, isEmpresa: false });
   if (accessToken === "JWT_SECRET_NOT_FOUND") {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
