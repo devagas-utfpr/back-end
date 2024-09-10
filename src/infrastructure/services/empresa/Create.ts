@@ -22,7 +22,7 @@ export const create = async (
           cnpj: empresa.cnpj,
           email: empresa.email,
           cidade: empresa.cidade,
-          senha: empresa.senha,
+          senha: hashPassword,
         },
       });
     } else {
