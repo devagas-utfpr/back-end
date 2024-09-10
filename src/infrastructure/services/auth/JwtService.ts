@@ -5,6 +5,7 @@ interface IJwtData {
 }
 
 const sign = (data: IJwtData) => {
+  console.log(data);
   if (!process.env.JWT_SECRET) {
     return "JWT_SECRET_NOT_FOUND";
   }
