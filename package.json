@@ -12,7 +12,7 @@
     "test": "jest",
     "clear_jest": "jest --clearCache",
     "production": "node ./build/index.js",
-    "postinstall": "tsc"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
