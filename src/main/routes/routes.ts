@@ -173,6 +173,13 @@ router.get(
   VagaController.getByUUID
 );
 
+router.get(
+  "/vagas/empresa/:uuidEmpresa",
+  ensureAuthenticated,
+  VagaController.getByEmpresaValidation,
+  VagaController.getByEmpresa
+);
+
 router.put(
   "/vagas/:uuid",
   ensureAuthenticated,
