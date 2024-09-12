@@ -8,11 +8,11 @@
 
 **DeVagas** é uma plataforma web que visa facilitar a conexão entre desenvolvedores e empresas de tecnologia a fim de auxiliar no processo de recrutamento e seleção de novos programadores incríveis! A ferramenta conta com funcionalidades tanto para candidatos quanto para empresas, proporcionando uma experiência eficiente e simplificada.
 
-**Atenção**: Futuramente a aplicação será hospedada na [Vercel](https://vercel.com/) gratuitamente e será possível consultar tanto o Swagger quanto as rotas remotamente.
+**Atenção**: A aplicação está sendo hospedada na [Vercel](https://vercel.com/) gratuitamente.
 
 ## 🧱 Arquitetura
 
-A aplicação é estruturada seguindo os princípios da **Clean Architecture** e **SOLID**, visando modularidade, testabilidade e fácil manutenção. A estrutura é organizada da seguinte maneira:
+A aplicação é estruturada seguindo os princípios da **Clean Architecture** e **SOLID**, visando modularidade, testabilidade e fácil manutenção. Portanto, o projeto é baseado em uma arquitetura em camadas. A estrutura é organizada da seguinte maneira:
 
 ```plaintext
 backend/
