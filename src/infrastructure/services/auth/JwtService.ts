@@ -2,6 +2,7 @@ import * as jwt from "jsonwebtoken";
 
 interface IJwtData {
   uuid: string;
+  isEmpresa: boolean;
 }
 
 const sign = (data: IJwtData) => {

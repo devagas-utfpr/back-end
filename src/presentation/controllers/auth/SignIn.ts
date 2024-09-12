@@ -4,9 +4,13 @@ import * as Yup from "yup";
 
 import { validation } from "../../middlewares/Validation";
 import { Usuario } from "../../../domain/entities/Usuario";
-import { UsuarioService } from "../../../infrastructure/services";
+import {
+  EmpresaService,
+  UsuarioService,
+} from "../../../infrastructure/services";
 import { PasswordCrypto } from "../../../infrastructure/services/auth/PasswordCrypto";
 import { JWTService } from "../../../infrastructure/services/auth/JwtService";
+import { Empresa } from "@prisma/client";
 
 interface IBodyProps
   extends Omit<
@@ -23,16 +27,48 @@ export const signInValidation = validation((getSchema) => ({
   ),
 }));
 
-export const signIn = async (req: Request<{}, {}, Usuario>, res: Response) => {
+export const signIn = async (
+  req: Request<{}, {}, Usuario | Empresa>,
+  res: Response
+) => {
   const { email, senha } = req.body;
 
-  const usuario = await UsuarioService.getByEmail(email);
+  let usuario = await UsuarioService.getByEmail(email);
   if (usuario instanceof Error) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({
-      errors: {
-        default: "Email e/ou senha são inválidos",
-      },
+    const empresa = await EmpresaService.getByEmail(email);
+    if (empresa instanceof Error) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        errors: {
+          default: "Email e/ou senha são inválidos",
+        },
+      });
+    }
+
+    const isPasswordValid = await PasswordCrypto.verifyPassword(
+      senha,
+      empresa.senha
+    );
+
+    if (!isPasswordValid) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        errors: {
+          default: "Email e/ou senha são inválidos",
+        },
+      });
+    }
+
+    const accessToken = JWTService.sign({
+      uuid: empresa.uuid,
+      isEmpresa: true,
     });
+    if (accessToken === "JWT_SECRET_NOT_FOUND") {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: {
+          default: "Erro ao gerar token de acesso.",
+        },
+      });
+    }
+    return res.status(StatusCodes.OK).json({ accessToken });
   }
 
   const isPasswordValid = await PasswordCrypto.verifyPassword(
@@ -47,7 +83,7 @@ export const signIn = async (req: Request<{}, {}, Usuario>, res: Response) => {
     });
   }
 
-  const accessToken = JWTService.sign({ uuid: usuario.uuid });
+  const accessToken = JWTService.sign({ uuid: usuario.uuid, isEmpresa: false });
   if (accessToken === "JWT_SECRET_NOT_FOUND") {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
