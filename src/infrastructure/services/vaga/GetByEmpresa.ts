@@ -3,9 +3,9 @@ import { prisma } from "../../prisma/PrismaClient";
 
 export const getByEmpresa = async (
   uuidEmpresa: string
-): Promise<Vaga | Error> => {
+): Promise<Vaga[] | Error> => {
   try {
-    const vaga = await prisma.vaga.findFirst({
+    const vaga = await prisma.vaga.findMany({
       where: {
         uuidEmpresa: uuidEmpresa,
       },
