@@ -187,7 +187,7 @@ router.put(
   VagaController.updateByUUID
 );
 
-router.delete(
+router.put(
   "/vagas/:uuid",
   ensureAuthenticated,
   VagaController.deleteByUUIDValidation,
@@ -237,7 +237,7 @@ router.put(
   UsuarioVagaController.updateByUUIDValidation,
   UsuarioVagaController.updateByUUID
 );
-router.delete(
+router.put(
   "/usuarios/vagas/:uuid",
   ensureAuthenticated,
   UsuarioVagaController.deleteByUUIDValidation,
