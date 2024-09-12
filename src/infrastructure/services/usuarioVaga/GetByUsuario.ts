@@ -22,6 +22,8 @@ export const getByUsuario = async (
                 nome: true,
               },
             },
+            dataInicio: true,
+            dataFim: true,
           },
         },
       },
