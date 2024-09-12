@@ -5,7 +5,6 @@ export const getAll = async (
   page: number,
   limit: number,
   titulo?: string,
-  status?: boolean,
   modalidade?: number
 ): Promise<Vaga[] | Error> => {
   try {
@@ -14,7 +13,7 @@ export const getAll = async (
       take: limit * 1,
       where: {
         titulo: titulo,
-        status: status,
+        status: true,
         modalidade: modalidade,
       },
       include: {
