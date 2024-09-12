@@ -188,7 +188,7 @@ router.put(
 );
 
 router.put(
-  "/vagas/:uuid",
+  "/vagas/status/:uuid",
   ensureAuthenticated,
   VagaController.deleteByUUIDValidation,
   VagaController.deleteByUUID
@@ -238,7 +238,7 @@ router.put(
   UsuarioVagaController.updateByUUID
 );
 router.put(
-  "/usuarios/vagas/:uuid",
+  "/usuarios/vagas/status/:uuid",
   ensureAuthenticated,
   UsuarioVagaController.deleteByUUIDValidation,
   UsuarioVagaController.deleteByUUID
