@@ -219,7 +219,7 @@ router.get(
   UsuarioVagaController.getByUUID
 );
 router.get(
-  "/usuarios/vagas/usuario/:uuidVaga",
+  "/usuarios/vagas/usuario/:uuidUsuario",
   ensureAuthenticated,
   UsuarioVagaController.getByUsuarioValidation,
   UsuarioVagaController.getByUsuario
