@@ -24,9 +24,20 @@ export const create = async (
   res: Response
 ) => {
   try {
-    const usuarioVaga = await UsuarioVagaService.create(req.body);
+    const usuarioVagaCriado = await UsuarioVagaService.getByUsuario(
+      req.body.uuidUsuario
+    );
 
-    return res.status(StatusCodes.OK).json(usuarioVaga);
+    if (Array.isArray(usuarioVagaCriado)) {
+      const usuarioVaga = await UsuarioVagaService.updateByUUID(
+        usuarioVagaCriado[0].uuid,
+        req.body
+      );
+      return res.status(StatusCodes.OK).json(usuarioVaga);
+    } else {
+      const usuarioVaga = await UsuarioVagaService.create(req.body);
+      return res.status(StatusCodes.OK).json(usuarioVaga);
+    }
   } catch (error: any) {
     return res.status(404).json({ message: error.message });
   }
