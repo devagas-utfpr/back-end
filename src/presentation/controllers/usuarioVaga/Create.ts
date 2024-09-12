@@ -28,7 +28,7 @@ export const create = async (
       req.body.uuidUsuario
     );
 
-    if (Array.isArray(usuarioVagaCriado)) {
+    if (Array.isArray(usuarioVagaCriado) && usuarioVagaCriado.length > 0) {
       const usuarioVaga = await UsuarioVagaService.updateByUUID(
         usuarioVagaCriado[0].uuid,
         req.body
